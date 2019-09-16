@@ -31,7 +31,7 @@ def write_values(connection_object, config, amplitude):
                                 [-1, -1, 1, 1],
                                 [1, -1, -1, 1]])
 
-    current_amplitudes = np.array([0.5, 1, 1.5, 2, 2.5])
+    current_amplitudes = np.array([0.5, 1, 1.5, 2, 2.5,0.1,0.2,0.3,0.4])
 
     current_values = current_amplitudes[amplitude-1] * current_configs[config-1]
     current_values[current_values == 0] = 0.001

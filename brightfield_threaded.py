@@ -13,8 +13,6 @@ import cv2
 import matplotlib.pyplot as plt
 
 
-
-
 def multiframe(number_of_frames, period, collated_filepath, collated_filename):
     pic_list = Queue.Queue()
     time_list = Queue.Queue()
@@ -22,7 +20,7 @@ def multiframe(number_of_frames, period, collated_filepath, collated_filename):
 
     cv2.namedWindow('%s' % collated_filename, cv2.WINDOW_NORMAL)
 
-    image=[np.zeros((10,10))]
+    image = [np.zeros((10, 10))]
 
     def actcam(pic_list, time_list, camera_object, frame0):
         exp_frame, pictime = b.takepic(camera_object, frame0)

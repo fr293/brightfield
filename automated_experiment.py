@@ -50,4 +50,3 @@ for experiment_run in file_list:
     m_thread.start()
     c_thread.join()
     m_thread.join()
-
