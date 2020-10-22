@@ -6,9 +6,11 @@ import threading
 
 
 def trigger_currents(connection_object, duration):
+    #print('magnet on')
     pscc.switch_on(connection_object)
     time.sleep(duration)
     pscc.switch_off(connection_object)
+    #print('magnet off')
 
 def setup_timer(time_on):
     time.sleep(time_on)
@@ -23,7 +25,7 @@ def time_currents(config, amplitude, time_on, duration):
     time.sleep(0.02)
     current_controller = threading.Thread(name='current_controller', target=trigger_currents,
                                           args=(connection_object, duration))
-    pscc.light_on(connection_object)
+    #pscc.light_on(connection_object)
     setup_timer_thread.join()
     current_controller.start()
     current_controller.join()
