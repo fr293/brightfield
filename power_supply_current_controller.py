@@ -9,7 +9,7 @@ import numpy as np
 
 def open_controller():
     try:
-        ps = serial.Serial('COM5', 19200, timeout=0.05)
+        ps = serial.Serial('COM4', 19200, timeout=0.05)
         print "Connection to Current Controller Successful"
         return ps
     except serial.SerialException:

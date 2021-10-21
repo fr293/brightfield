@@ -45,8 +45,8 @@ print('success: you have selected ' + output_folder)
 
 
 
-Ztop=input("Type the z of the top of the glass:")
-Zfocus=input('Type the z where the bead is equally focused on both screens:')
+Ztop = input("input the z position of the top of the glass:")
+Zfocus = input('input the z position of the bead (equally focused on both screens):')
 
 with open(output_folder + 'Z_information.csv', 'w+') as f:
     writer = csv.writer(f)
@@ -62,7 +62,8 @@ print('success: starting experiment')
 for experiment_run in file_list:
     # extract current configurations
     [filename, ca, cc, fon, fdur, num_frames, frame_period, temp] = experiment_run
-    filename=str(filename)[1:-1]
+    #filename=str(filename)[1:-1]
+    filename = str(filename)
 
     c_thread = threading.Thread(name='m_thread', target=bt.multiframe,
                                 args=(num_frames, frame_period, output_folder, filename))
