@@ -7,10 +7,9 @@ import threading
 from Tkinter import *
 import tkFileDialog
 import csv
+# import stringutils
 
-import stringutils
 # read in data from input csv, and program experiments
-aux='truc'
 
 f = Figlet(font='isometric1')
 print f.renderText('Ferg')
@@ -21,8 +20,6 @@ time.sleep(1)
 
 print('Welcome to the automated brightfield creep test tool.')
 time.sleep(0.5)
-
-
 
 print('please select the file that contains details of the experiments to be run:')
 
@@ -42,34 +39,30 @@ root.directory = tkFileDialog.askdirectory()
 output_folder = root.directory + '/'
 print('success: you have selected ' + output_folder)
 
-
-
-
-Ztop = input("input the z position of the top of the glass:")
-Zfocus = input('input the z position of the bead (equally focused on both screens):')
+Ztop = input("input the Z position of the top of the glass:")
+Zfocus = input('input the Z position of the bead (equally focused on both screens):')
 
 with open(output_folder + 'Z_information.csv', 'w+') as f:
     writer = csv.writer(f)
     writer.writerow([Ztop, Zfocus])
 
-
-
 print('success: starting experiment')
 
-
-
+pscct.light_on()
 
 for experiment_run in file_list:
     # extract current configurations
     [filename, ca, cc, fon, fdur, num_frames, frame_period, temp] = experiment_run
-    #filename=str(filename)[1:-1]
+    # filename=str(filename)[1:-1]
     filename = str(filename)
 
-    c_thread = threading.Thread(name='m_thread', target=bt.multiframe,
+    c_thread = threading.Thread(name='c_thread', target=bt.multiframe,
                                 args=(num_frames, frame_period, output_folder, filename))
-    m_thread = threading.Thread(name='c_thread', target=pscct.time_currents, args=(cc, ca, fon, fdur))
+    m_thread = threading.Thread(name='m_thread', target=pscct.time_currents, args=(cc, ca, fon, fdur))
     print('performing experiment: ' + filename)
     c_thread.start()
     m_thread.start()
     c_thread.join()
     m_thread.join()
+
+pscct.light_off()

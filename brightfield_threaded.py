@@ -10,7 +10,6 @@ import imageio
 import brightfield as b
 from tqdm import tqdm
 import cv2
-import matplotlib.pyplot as plt
 
 
 def multiframe(number_of_frames, period, collated_filepath, collated_filename):
@@ -20,11 +19,11 @@ def multiframe(number_of_frames, period, collated_filepath, collated_filename):
 
     cv2.namedWindow('%s' % collated_filename, cv2.WINDOW_NORMAL)
 
-    image = [np.zeros((10, 10))]
+    preview = [np.zeros((10, 10))]
 
     def actcam(pic_list, time_list, camera_object, frame0):
         exp_frame, pictime = b.takepic(camera_object, frame0)
-        image[0] = cv2.resize(exp_frame, None, fx=0.25, fy=0.25, interpolation=cv2.INTER_CUBIC)
+        preview[0] = cv2.resize(exp_frame, None, fx=0.25, fy=0.25, interpolation=cv2.INTER_CUBIC)
         pic_list.put(exp_frame)
         time_list.put(pictime)
 
@@ -34,7 +33,7 @@ def multiframe(number_of_frames, period, collated_filepath, collated_filename):
         time.sleep(period)
         camera.join()
 
-        cv2.imshow('%s' % collated_filename, image[0])
+        cv2.imshow('%s' % collated_filename, preview[0])
         cv2.waitKey(1)
 
     cv2.destroyAllWindows()
